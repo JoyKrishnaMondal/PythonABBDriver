@@ -11,7 +11,6 @@ An attempt to create an open python interface to allow accessing functionality o
 
 2) ABB robots cannot be directly controlled, the robot is connected to another piece of hardware called the controller - we can only talk to this controller. The flexpendent is the console/terminal/screen to this hardware.
 
-3)
 
 
 
