@@ -8,6 +8,7 @@ def Initiate():
 
 	import clr
 	import sys
+	import System
 
 
 	InitalPath = "C:\\usb\\"
@@ -18,55 +19,46 @@ def Initiate():
 	import ABB.Robotics.Controllers as control
 	import ABB.Robotics as robot
 
+	print "start scan"
 
 	scanner = control.Discovery.NetworkScanner()
 
 	scanner.Scan()
 
+	print "scanned"
+
 	controllers = control.ControllerInfoCollection()
 
 	controllers = scanner.Controllers
-	# print scanner.Controllers[0]
+	print (controllers.Count)
 	VirtualController = controllers[0]
 	VirtualController = control.ControllerFactory.CreateFrom(VirtualController)
-
 	VirtualController.Logon(control.UserInfo.DefaultUser)
-
+	print "logged on to virtual controller"
 	m = control.Mastership.Request(VirtualController.Rapid)
-
-	def handle(*args):
-		print args
-
+	# def handle(*args):
+	# 	print args
 	VirtualController.AuthenticationSystem.CheckDemandGrant(control.Grant.ExecuteRapid)
-
+	print "Authentication Granted to run Rapid Code"
 	tRob1 = VirtualController.Rapid.GetTask("T_ROB1")
-
-	# print (VirtualController.FileSystem.GetLocalPath)
-	# print (VirtualController.FileSystem.GetRemotePath)
-	# print dir (VirtualController.FileSystem)
-	# print (VirtualController.FileSystem.BeginListDirectory(,handle))
-
-	# GetMasterRapid
-	# VirtualController.FileSystem.PutFile("C:\\usb\\helloworld.mod",True)
-
-	localdir = VirtualController.FileSystem.LocalDirectory
-	remotedir = VirtualController.FileSystem.RemoteDirectory
-
-	print localdir
-	print remotedir
-
-	tRob1.LoadModuleFromFile("C:\\usb\\helloworld.mod",control.RapidDomain.RapidLoadMode.Replace)
+	filename  = "helloworld.mod"
+	home = VirtualController.GetEnvironmentVariable("HOME")
+	VirtualController.FileSystem.RemoteDirectory = home
+	VirtualController.FileSystem.LocalDirectory = "C:/usb"
+	VirtualController.FileSystem.PutFile(filename, filename, True)
+	# VirtualController.Rapid.ResetProgramPointer()
+	tRob1.LoadModuleFromFile(home + "/" + filename,control.RapidDomain.RapidLoadMode.Replace)
 	tRob1.SetProgramPointer("MainModule", "main")
+	# tRob1.Start()
 	VirtualController.Rapid.Start()
 
-	# VirtualController.Rapid.ResetProgramPointer()
+
 
 
 	# tRob1.LoadModuleFromFile("T_ROB1\\MainModule\\main\\NewProgramName.mod",control.RapidDomain.RapidLoadMode.Replace)
 
 
 
-	# tRob1.Start()
 
 	# p20 = VirtualController.Rapid.GetRapidData("T_ROB1", "MainModule","p20")
 
@@ -94,8 +86,9 @@ def Initiate():
 
 	# def EndSession():
 	# 	print "Disconnecting From Arm"
-	m.Release()
+	# m.Release()
 	VirtualController.Logoff()
+	VirtualController.Dispose()
 
 
 	# return dotdict({"MoveBy":MoveBy, "EndSession":EndSession})
