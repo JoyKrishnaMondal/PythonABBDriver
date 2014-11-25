@@ -16,7 +16,7 @@ An attempt to create an open python interface to allow accessing functionality o
 
 ## Aim of project
 
-I have started this project to attempt to create an interface in ironpython that will allow to me sent instructions onto a TCP/IP socket to ironpython that will use ABB's SDK to upload relevant RAPID code or at least manipulate it so that we can in a simple manner make the robot do things we want it to.
+I have started this project to attempt to create an interface in ironpython that will allow to me send instructions onto a TCP/IP socket to ironpython that will use ABB's SDK to upload relevant RAPID code or at least manipulate it so that we can in a simple manner make the robot do things we want it to.
 
 ## Progress
 
