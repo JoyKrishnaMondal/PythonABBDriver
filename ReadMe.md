@@ -7,10 +7,10 @@ An attempt to create an open python interface to allow accessing functionality o
 
 2. ABB robots cannot be directly controlled, the robot is connected to another piece of hardware called the controller - we can only talk to this controller. The flexpendent is the console/terminal/screen to this hardware.
 
-3. ABB has written a Domain Specfic Language for their robots. The <code>.DLL</code> has no function that can be directly called to make the robot do things. This language is called <code>RAPID</code>.
+3. ABB has written a Domain Specfic Language for their robots. The <code>.DLL</code> has no function that can be directly called to make the robot do things. This Domain specifc language is called <code>RAPID</code>.
 
 
-4.We can only make the controller execute RAPID code. It will not execute C#,C++ or any other mainstream language that you are used to.
+4. We can only make the controller execute RAPID code. It will not execute C#,C++ or any other mainstream language that you are used to.
 
 5. The SDK only allows us to upload, manipulate and remove RAPID code using the <code>.DLL</code>s.
 
