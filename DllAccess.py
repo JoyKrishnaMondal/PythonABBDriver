@@ -4,6 +4,12 @@ class dotdict(dict):
      __setattr__= dict.__setitem__
      __delattr__= dict.__delitem__
 
+White = "\033[0;37m"
+
+LightGreen = "\033[1;32m"
+
+Green = "\033[0;32m"
+
 def Initiate():
 
 	import clr
