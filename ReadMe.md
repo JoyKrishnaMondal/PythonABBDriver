@@ -14,7 +14,7 @@ After installation the dependencies, just git clone this repository into the fol
 git clone https://github.com/JoyKrishnaMondal/PythonABBDriver.git
 ```
 
-Now whenever you want to upload the file just run the script <code>DLLAccess.py</code> from the terminal
+Now whenever you want to upload the <code>.mod</code> file that contains <code>RAPID</code> code just run the script <code>DLLAccess.py</code> from the terminal
 
 
 ## CrashCourse on the ABB software system
