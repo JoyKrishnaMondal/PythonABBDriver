@@ -1,6 +1,22 @@
 #PythonABBDriver
 An attempt to create an open python interface to allow accessing functionality of IRB series ABB robots via terminal
 
+## How to Install
+
+Dependencies
+1. You need to have the latest version of IronPython
+2. Installation of Robotware 5.15
+3. Installation of Git ( unless you download the repository as a <code>.zip</code> file.
+
+After installation the dependencies, just git clone this repository into the folder of your choice from your terminal
+
+```
+git clone https://github.com/JoyKrishnaMondal/PythonABBDriver.git
+```
+
+Now whenever you want to upload the file just run the script <code>DLLAccess.py</code> from the terminal
+
+
 ## CrashCourse on the ABB software system
 
 1. ABB is a microsoft shop, they have exposed their SDK using 2 <code>.DLL</code> files.
