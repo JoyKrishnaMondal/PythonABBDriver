@@ -4,55 +4,64 @@ class dotdict(dict):
      __setattr__= dict.__setitem__
      __delattr__= dict.__delitem__
 
-White = "\033[0;37m"
+import System
+import clr
+import sys
+import os
+clr.AddReferenceToFileAndPath('ABB.Robotics.Controllers.dll')
+clr.AddReferenceToFileAndPath('ABB.Robotics.dll')
+import ABB.Robotics.Controllers as control
+import ABB.Robotics as robot
 
-LightGreen = "\033[1;32m"
-
-Green = "\033[0;32m"
+def printf(string,color = "Green",EndLine = True):
+	
+	System.Console.ForegroundColor = eval("System.ConsoleColor." + color)
+	System.Console.Write(string)
+	if (EndLine == True):
+		System.Console.Write("\n")
+	System.Console.ResetColor()
 
 def Initiate():
 
-	import clr
-	import sys
-	import System
-
-
-	InitalPath = "C:\\usb\\"
-
-	clr.AddReferenceToFileAndPath('ABB.Robotics.Controllers.dll')
-	clr.AddReferenceToFileAndPath('ABB.Robotics.dll')
-
-	import ABB.Robotics.Controllers as control
-	import ABB.Robotics as robot
-
-	print "start scan"
+	InitalPath = os.getcwd()
 
 	scanner = control.Discovery.NetworkScanner()
 
 	scanner.Scan()
 
-	print "scanned"
+	printf("scan complete")
 
 	controllers = control.ControllerInfoCollection()
 
 	controllers = scanner.Controllers
-	print (controllers.Count)
+
+	printf (str(controllers.Count),EndLine = False)
+
+	printf(" ABB Robots found in network")
+
 	VirtualController = controllers[0]
 	VirtualController = control.ControllerFactory.CreateFrom(VirtualController)
 	VirtualController.Logon(control.UserInfo.DefaultUser)
-	print "logged on to virtual controller"
+
+	printf("logged on to virtual controller")
+
 	m = control.Mastership.Request(VirtualController.Rapid)
-	# def handle(*args):
-	# 	print args
+
+	printf("MasterShip granted")
+
 	VirtualController.AuthenticationSystem.CheckDemandGrant(control.Grant.ExecuteRapid)
-	print "Authentication Granted to run Rapid Code"
+
+	printf("Authentication Granted to run Rapid Code")
+
 	tRob1 = VirtualController.Rapid.GetTask("T_ROB1")
+	
 	filename  = "helloworld.mod"
+
 	home = VirtualController.GetEnvironmentVariable("HOME")
+
 	VirtualController.FileSystem.RemoteDirectory = home
-	VirtualController.FileSystem.LocalDirectory = "C:/usb"
+	VirtualController.FileSystem.LocalDirectory = InitalPath
 	VirtualController.FileSystem.PutFile(filename, filename, True)
-	# VirtualController.Rapid.ResetProgramPointer()
 	tRob1.LoadModuleFromFile(home + "/" + filename,control.RapidDomain.RapidLoadMode.Replace)
 	tRob1.SetProgramPointer("MainModule", "main")
 	# tRob1.Start()
@@ -100,8 +109,11 @@ def Initiate():
 	# return dotdict({"MoveBy":MoveBy, "EndSession":EndSession})
 
 
-
-Fn = Initiate()
+try:
+	Initiate()
+except Exception as e:
+	printf(e,"Red")
+	# printf (Runtime)
 
 # Fn.MoveBy()
 
