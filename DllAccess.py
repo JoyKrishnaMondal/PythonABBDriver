@@ -44,9 +44,10 @@ def RegexChange(value = "0,0,0",name="p20",filename ="helloworld.mod"):
 	
 
 	ReString = 'Offs\(' + name + ",(.*)\);"
-	Replace = 'Offs(' + value + ");"
+	Replace = 'Offs(p20,' + value + ");"
 
 	replaced = re.sub(ReString,Replace,readData);
+
 	# o.write(replaced)
 	
 	f.close()
@@ -103,11 +104,13 @@ def Initiate():
 	p20 = VirtualController.Rapid.GetRapidData("T_ROB1", "MainModule","p20")
 	p20.ValueChanged += handle
 
-	m.Release()
-	m.Dispose()
+	
 	# VirtualController.Rapid.GetRapidData("T_ROB1", "MainModule","Amount").ValueChanged += handle
 	# print p20.Value.ToString()
+	VirtualController.Rapid.Start()
 
+	m.Release()
+	m.Dispose()
 
 	def MoveBy(x = 0):
 
@@ -156,13 +159,14 @@ def Initiate():
 
 
 try:
+
 	RegexChange(sys.argv[1])
 	Fn = Initiate()
 	# Fn.MoveBy(10.0)
 
 	# from time import sleep
-	printf("Press Enter to End . .")
-	raw_input()
+	# printf("Press Enter to End . .")
+	# raw_input()
 	Fn.EndSession()
 
 
