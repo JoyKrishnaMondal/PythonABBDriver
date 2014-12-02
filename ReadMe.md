@@ -39,7 +39,7 @@ I have started this project to attempt to create an interface in ironpython that
 ## Progress
 
 1. The code I have until now will allow you to easily upload a sample rapid code to execute on the robot.
-2 . Robot functionaly can be accessed via MATAB.
+2. Robot functionaly can be accessed via MATAB.
 
 ##TODO
 
